@@ -1,0 +1,17 @@
+export const app_url = process.env.APP_URL;
+export const api_base_url = process.env.API_BASE_URL;
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+export const admin_login = api_base_url +'/admin/login';
+export const fuel_category_list = api_base_url + '/fuel_type_list';
+export const add_fuel_category = api_base_url + '/admin/add_fuel_type';
+export const edit_fuel_category = api_base_url + '/admin/edit_fuel_type';
+export const update_fuel_category = api_base_url + '/admin/update_fuel_type';
+export const vehicle_type_category_list = api_base_url + '/vehicle_type_list';
+export const add_vehicle_type_category = api_base_url + '/admin/add_vehicle_type';
+export const edit_vehicle_type_category = api_base_url + '/admin/edit_vehicle_type';
+export const update_vehicle_type_category = api_base_url + '/admin/update_vehicle_type';
+export const get_vehicle_brand_list = api_base_url + '/vehicle_brand_list';
+export const add_vehicle_brand = api_base_url + '/admin/add_vehicle_brand';
+export const edit_vehicle_brand = api_base_url + '/admin/edit_vehicle_brand';
+export const update_vehicle_brand = api_base_url + '/admin/update_vehicle_brand';
+export const get_users_list = api_base_url + '/admin/user_list';
