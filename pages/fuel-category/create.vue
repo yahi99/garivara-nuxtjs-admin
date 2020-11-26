@@ -34,7 +34,7 @@ export default {
   middleware: "authenticate",
   head() {
     return {
-      title: `${this.title} | Minton - Nuxtjs Responsive Admin Dashboard Template`,
+      title: `${this.title} | ${process.env.APP_NAME}`,
     };
   },
   data() {

@@ -31,13 +31,27 @@ export const menuItems = [
       id: 6,
       label: 'Drivers',
       icon: 'ri-user-6-fill',
-      link: '/drivers'
+      isMenuCollapsed: false,
+      subItems: [
+        {
+          id: 21,
+          label: 'Pending drivers',
+          link: '/drivers/pending-drivers'
+        }
+      ]
     },
     {
-      id: 7,
+      id: 20,
       label: 'Vehicles',
       icon: 'ri-car-fill',
-      link: '/vehicles'
+      isMenuCollapsed: false,
+      subItems: [
+        {
+          id: 21,
+          label: 'Verification requests',
+          link: '/vehicles/verification-requests'
+        }
+      ]
     },
     {
       id: 8,

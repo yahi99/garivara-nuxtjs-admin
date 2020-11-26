@@ -5,7 +5,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="header-title">All users</h4>
+            <h4 class="header-title">Pending drivers list</h4>
             <p class="text-muted font-13 mb-4"></p>
             <div class="row mb-md-2">
               <div class="col-sm-12 col-md-6">
@@ -29,18 +29,15 @@
             </div>
             <!-- Table -->
             <div class="table-responsive mb-0">
-              <b-table :items="usersList" :fields="fields" responsive="sm" :per-page="perPage" :current-page="currentPage" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :filter="filter" :filter-included-fields="filterOn" @filtered="onFiltered">
-                <template #cell(name)="data">
-                  {{ data.item.first_name + ' ' + data.item.last_name }}
+              <b-table :items="pendingDrivers" :fields="fields" responsive="sm" :per-page="perPage" :current-page="currentPage" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :filter="filter" :filter-included-fields="filterOn" @filtered="onFiltered">
+                <template #cell(actions)="row">
+                  <b-button size="sm" class="mr-1" variant="success" @click.prevent="editData(row.item['_id']['$oid'])">
+                    Edit
+                  </b-button>
+                  <!--                  <b-button size="sm" variant="danger">-->
+                  <!--                    Delete-->
+                  <!--                  </b-button>-->
                 </template>
-                <!--                <template #cell(actions)="row">-->
-                <!--                  <b-button size="sm" class="mr-1" variant="success" @click.prevent="editData(row.item['_id']['$oid'])">-->
-                <!--                    Edit-->
-                <!--                  </b-button>-->
-                <!--                  &lt;!&ndash;                  <b-button size="sm" variant="danger">&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                    Delete&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                  </b-button>&ndash;&gt;-->
-                <!--                </template>-->
               </b-table>
             </div>
             <div class="row">
@@ -61,26 +58,27 @@
 </template>
 
 <script>
-import {get_users_list} from "@/api/urls";
+import {pending_driver_list} from "@/api/urls";
 
 export default {
-  name: "drivers",
-  middleware: 'authenticate',
+  name: "pendingDrivers",
+  middleware:'authenticate',
   head() {
     return {
-      title: `${this.title} | ` + process.env.APP_NAME
-    }
+      title: `${process.env.APP_NAME} | ${this.title}`,
+    };
   },
   data() {
     return {
-      title: 'Verified drivers',
+      title: "Pending Drivers",
+      pendingDrivers:[],
       items: [{
         text: 'Admin',
         href: '/',
       },
         {
-          text: 'Drivers',
-          active: true,
+          text: 'Pending drivers',
+          href: '/drivers/pending-drivers',
         }
       ],
       totalRows: 1,
@@ -92,62 +90,18 @@ export default {
       sortBy: 'age',
       sortDesc: false,
       fields: [
-        'Name',
-        {
-          key: 'email',
-          sortable: true
-        },
-        {
-          key: 'phone_no',
-          sortable: true
-        },
-        {
-          key: 'address',
-          sortable: true
-        },
-        {
-          key: 'area',
-          sortable: true
-        },
-        {
-          key: 'city',
-          sortable: true
-        },
-        {
-          key: 'country',
-          sortable: true
-        }
+        { key: 'drivers.name', label: 'Name', sortable: false },
+        { key: 'drivers.phone_no', label: 'Phone No', sortable: false },
+        { key: 'drivers.address', label: 'Address', sortable: false },
+        { key: 'drivers.drivingLicence', label: 'Driving Licence', sortable: false },
+        { key: 'drivers.nid', label: 'NID', sortable: false },
+        'actions'
       ],
-      errorMessage: '',
-      driversList : []
-    }
+      errorMessage:''
+    };
   },
-  computed: {
-    /**
-     * Total no. of records
-     */
-    rows() {
-      return this.driversList.length
-    }
-  },
-  mounted() {
-    // Set the initial number of items
-    this.totalRows = this.items.length;
-    this.getAllUsersList();
-  },
-  methods: {
-    /**
-     * Search the table data with search input
-     */
-    onFiltered(filteredItems) {
-      // Trigger pagination to update the number of buttons/pages due to filtering
-      this.totalRows = filteredItems.length
-      this.currentPage = 1
-    },
-    editData(id){
-      this.$router.push('fuel-category/edit/'+id);
-    },
-    getAllDriversList(){
+  methods:{
+    getPendingDriverList(){
       let self = this;
       const token = this.$cookies.get('accessToken');
       let config = {
@@ -156,22 +110,36 @@ export default {
           'Accept': 'application/json'
         },
       }
-      let payload = {
-        "role":'passenger'
-      }
 
-      self.$axios.$post(get_users_list, payload, config).then((res) => {
+      this.$axios.$get(pending_driver_list, config).then((res) => {
         if (res.error === true){
-          this.errorMessage=res.msg
+          self.errorMessage=res.msg;
         }
         else {
-          this.usersList=res.data;
+          self.pendingDrivers=res.data;
         }
       }).catch((error)=>{
         console.log(error)
       });
+    },
+    onFiltered(filteredItems) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length
+      this.currentPage = 1
+    },
+    editData(id){
+      this.$router.push('/drivers/pending-drivers/process/'+id);
+    },
+  },
+  computed: {
+    rows() {
+      return this.pendingDrivers.length
     }
   },
+  mounted() {
+    this.totalRows = this.items.length;
+    this.getPendingDriverList();
+  }
 }
 </script>
 

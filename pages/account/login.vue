@@ -16,8 +16,8 @@ export default {
     },
     data() {
         return {
-            phone_no: "",
-            password: "",
+            phone_no: "01700000000",
+            password: "12345",
             submitted: false,
             authError: null,
             tryingToLogIn: false,
