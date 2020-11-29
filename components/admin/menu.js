@@ -34,6 +34,11 @@ export const menuItems = [
       isMenuCollapsed: false,
       subItems: [
         {
+          id: 22,
+          label: 'Verified drivers',
+          link: '/drivers'
+        },
+        {
           id: 21,
           label: 'Pending drivers',
           link: '/drivers/pending-drivers'

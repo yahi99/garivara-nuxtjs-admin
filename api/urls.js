@@ -22,3 +22,4 @@ export const get_driver_info = api_base_url + '/get_driver_info/';
 export const get_vehicle_info = api_base_url + '/get_vehicle_data/';
 export const get_unoccupied_drivers = api_base_url + '/admin/unoccupied_driver_list/';
 export const vehicle_verification = api_base_url + '/admin/vehicle_verification/';
+export const verified_drivers_list = api_base_url + '/admin/driver_list/verified';

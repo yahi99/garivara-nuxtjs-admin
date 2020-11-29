@@ -29,7 +29,7 @@
             </div>
             <!-- Table -->
             <div class="table-responsive mb-0">
-              <b-table :items="usersList" :fields="fields" responsive="sm" :per-page="perPage" :current-page="currentPage" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :filter="filter" :filter-included-fields="filterOn" @filtered="onFiltered">
+              <b-table :items="driversList" :fields="fields" responsive="sm" :per-page="perPage" :current-page="currentPage" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :filter="filter" :filter-included-fields="filterOn" @filtered="onFiltered">
                 <template #cell(name)="data">
                   {{ data.item.first_name + ' ' + data.item.last_name }}
                 </template>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import {get_users_list} from "@/api/urls";
+import {verified_drivers_list} from "@/api/urls";
 
 export default {
   name: "drivers",
@@ -95,27 +95,23 @@ export default {
         'Name',
         {
           key: 'email',
-          sortable: true
+          sortable: false
         },
         {
           key: 'phone_no',
-          sortable: true
+          sortable: false
         },
         {
           key: 'address',
-          sortable: true
-        },
-        {
-          key: 'area',
-          sortable: true
-        },
-        {
-          key: 'city',
-          sortable: true
+          sortable: false
         },
         {
           key: 'country',
-          sortable: true
+          sortable: false
+        },
+        {
+          key: 'default_contact_number',
+          sortable: false
         }
       ],
       errorMessage: '',
@@ -133,7 +129,7 @@ export default {
   mounted() {
     // Set the initial number of items
     this.totalRows = this.items.length;
-    this.getAllUsersList();
+    this.getAllDriversList();
   },
   methods: {
     /**
@@ -145,7 +141,7 @@ export default {
       this.currentPage = 1
     },
     editData(id){
-      this.$router.push('fuel-category/edit/'+id);
+      // this.$router.push('fuel-category/edit/'+id);
     },
     getAllDriversList(){
       let self = this;
@@ -156,16 +152,13 @@ export default {
           'Accept': 'application/json'
         },
       }
-      let payload = {
-        "role":'passenger'
-      }
 
-      self.$axios.$post(get_users_list, payload, config).then((res) => {
+      self.$axios.$get(verified_drivers_list, config).then((res) => {
         if (res.error === true){
           this.errorMessage=res.msg
         }
         else {
-          this.usersList=res.data;
+          this.driversList=res.data;
         }
       }).catch((error)=>{
         console.log(error)
