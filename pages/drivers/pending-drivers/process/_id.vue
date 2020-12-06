@@ -32,8 +32,8 @@
                       <label class="col-md-2 col-form-label">Profile image</label>
                       <div class="col-md-10">
                         <div class="popup-gallery">
-                          <img :src="driverInfo.image" width="120" @click="singleImage = true" />
-                          <vue-easy-lightbox :visible="singleImage" :imgs="driverInfo.image" @hide="singleImage = false"></vue-easy-lightbox>
+                          <img :src="driverInfo.image" width="120" @click="singleProfileImage = true" />
+                          <vue-easy-lightbox :visible="singleProfileImage" :imgs="driverInfo.image" @hide="singleProfileImage = false"></vue-easy-lightbox>
                         </div>
                       </div>
                     </div>
@@ -84,8 +84,8 @@
                       <label class="col-md-2 col-form-label">Licence image</label>
                       <div class="col-md-10">
                         <div class="popup-gallery">
-                          <img :src="driverInfo.drivingLicenceImg" width="120" @click="singleImage = true" />
-                          <vue-easy-lightbox :visible="singleImage" :imgs="driverInfo.drivingLicenceImg" @hide="singleImage = false"></vue-easy-lightbox>
+                          <img :src="driverInfo.drivingLicenceImg" width="120" @click="singleLicenseImage = true" />
+                          <vue-easy-lightbox :visible="singleLicenseImage" :imgs="driverInfo.drivingLicenceImg" @hide="singleLicenseImage = false"></vue-easy-lightbox>
                         </div>
                       </div>
                     </div>
@@ -94,6 +94,7 @@
                       <label class="col-md-2 col-form-label">Select Status</label>
                       <div class="col-md-10">
                         <select class="form-control" v-model="driverStatus" required>
+                          <option value="">-- Select Action --</option>
                           <option value="verified">Verified</option>
                           <option value="rejected">Rejected</option>
                         </select>
@@ -177,7 +178,8 @@ export default {
       driverStatus:'',
       comment:'',
       visible: false,
-      singleImage: false,
+      singleProfileImage: false,
+      singleLicenseImage: false,
       defaultVehicleTypes: defaultVehicleTypes
     }
   },

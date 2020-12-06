@@ -284,7 +284,7 @@
               <div class="form-group">
                 <label>Select Status</label>
                 <select class="form-control" v-model="driverStatus" required>
-                  <option value="">-- Select --</option>
+                  <option value="">-- Select Action --</option>
                   <option value="verified">Verified</option>
                   <option value="rejected">Rejected</option>
                 </select>
@@ -397,47 +397,47 @@ export default {
       this.$axios.$get(get_vehicle_info+this.$route.params.id, config).then((res) => {
         if (res.error === true){
           self.$router.push('/vehicles/verification-requests');
-          self.$toasted.success('Invalid vehicle ID',{ duration:5000, position: 'top-center' })
+          self.$toasted.error('Invalid vehicle ID',{ duration:5000, position: 'top-center' })
         }
         else {
-          this.vehicleInfo.vehicle_type=res.data[0].vehicleTypeDetails.title;
-          this.vehicleInfo.brand=res.data[0].vehicleTypeDetails.brands[0]['brand'];
-          this.vehicleInfo.capacity=res.data[0].capacity;
-          this.vehicleInfo.address=res.data[0].carAddress;
-          this.vehicleInfo.chassis_number=res.data[0].chassisNumber;
-          this.vehicleInfo.color=res.data[0].color;
-          this.vehicleInfo.country=res.data[0].country;
-          this.vehicleInfo.engine_number=res.data[0].engineNumber;
-          this.vehicleInfo.fuel_type=res.data[0].fuel_type_details[0]['title'];
-          this.vehicleInfo.gear_type=res.data[0].gearType;
-          this.vehicleInfo.millage=res.data[0].millage;
-          this.vehicleInfo.model=res.data[0].model;
-          this.vehicleInfo.tires_number=res.data[0].tiresNumber;
-          this.vehicleInfo.vehicle_cc=res.data[0].vehicleCC;
-          this.vehicleInfo.vehicle_length=res.data[0].vehicleLength;
-          this.vehicleInfo.vehicle_number=res.data[0].vehicleNumber;
-          this.vehicleInfo.default_contact_no=res.data[0].default_contact_number;
-          this.vehicleImages=res.data[0].vehicle_imgs;
-          this.vehicleInfo.refType=res.data[0].refType;
+          this.vehicleInfo.vehicle_type=res.data.vehicleTypeTitle;
+          this.vehicleInfo.brand=res.data.brandTitle;
+          this.vehicleInfo.capacity=res.data.capacity;
+          this.vehicleInfo.address=res.data.carAddress;
+          this.vehicleInfo.chassis_number=res.data.chassisNumber;
+          this.vehicleInfo.color=res.data.color;
+          this.vehicleInfo.country=res.data.country;
+          this.vehicleInfo.engine_number=res.data.engineNumber;
+          this.vehicleInfo.fuel_type=res.data.fuelTypeTitle;
+          this.vehicleInfo.gear_type=res.data.gearType;
+          this.vehicleInfo.millage=res.data.millage;
+          this.vehicleInfo.model=res.data.model;
+          this.vehicleInfo.tires_number=res.data.tiresNumber;
+          this.vehicleInfo.vehicle_cc=res.data.vehicleCC;
+          this.vehicleInfo.vehicle_length=res.data.vehicleLength;
+          this.vehicleInfo.vehicle_number=res.data.vehicleNumber;
+          this.vehicleInfo.default_contact_no=res.data.default_contact_number;
+          this.vehicleImages=res.data.vehicle_imgs;
+          this.vehicleInfo.refType=res.data.refType;
 
         //  For Driver Info
-          if (res.data[0].driverDetails.length > 0){
-            this.driverInfo.name=res.data[0].driverDetails[0].name;
-            this.driverInfo.profile_image=res.data[0].driverDetails[0].image;
-            this.driverInfo.address=res.data[0].driverDetails[0].address;
-            this.driverInfo.phone_no=res.data[0].driverDetails[0].phone_no;
-            this.driverInfo.dob=res.data[0].driverDetails[0].dob;
-            this.driverInfo.nid=res.data[0].driverDetails[0].nid;
-            this.driverInfo.driving_licence=res.data[0].driverDetails[0].drivingLicence;
-            this.driverInfo.driving_licence_image=res.data[0].driverDetails[0].drivingLicenceImg;
-            this.driverInfo.driving_licence_expiry=res.data[0].driverDetails[0].drivingLicenceExpiry;
+          if (res.data.driverDetails.length > 0){
+            this.driverInfo.name=res.data.driverDetails[0].name;
+            this.driverInfo.profile_image=res.data.driverDetails[0].image;
+            this.driverInfo.address=res.data.driverDetails[0].address;
+            this.driverInfo.phone_no=res.data.driverDetails[0].phone_no;
+            this.driverInfo.dob=res.data.driverDetails[0].dob;
+            this.driverInfo.nid=res.data.driverDetails[0].nid;
+            this.driverInfo.driving_licence=res.data.driverDetails[0].drivingLicence;
+            this.driverInfo.driving_licence_image=res.data.driverDetails[0].drivingLicenceImg;
+            this.driverInfo.driving_licence_expiry=res.data.driverDetails[0].drivingLicenceExpiry;
           }
 
           //  For Owner Info
-          if (res.data[0].ownerDetails.length > 0) {
-            this.ownerInfo.name = res.data[0].ownerDetails[0].name;
-            this.ownerInfo.address = res.data[0].ownerDetails[0].address;
-            this.ownerInfo.contact = res.data[0].ownerDetails[0].contact;
+          if (res.data.ownerDetails.length > 0) {
+            this.ownerInfo.name = res.data.ownerDetails[0].name;
+            this.ownerInfo.address = res.data.ownerDetails[0].address;
+            this.ownerInfo.contact = res.data.ownerDetails[0].contact;
           }
 
         }
