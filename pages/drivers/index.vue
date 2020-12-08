@@ -145,7 +145,7 @@ export default {
     },
     getAllDriversList(){
       let self = this;
-      const token = this.$cookies.get('accessToken');
+      const token = this.$cookies.get('accessTokenAdmin');
       let config = {
         headers: {
           'Authorization': `Bearer ${token}`,

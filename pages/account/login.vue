@@ -70,7 +70,7 @@ export default {
               else {
                 this.tryingToLogIn = false;
                 this.isAuthError = false;
-                this.$cookies.set('accessToken', res.token, {
+                this.$cookies.set('accessTokenAdmin', res.token, {
                   path: '/',
                   maxAge: 60 * 60
                 })

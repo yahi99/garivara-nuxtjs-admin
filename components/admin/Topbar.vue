@@ -106,7 +106,7 @@ export default {
          * Logout user
          */
         logoutUser() {
-            this.$cookies.remove('accessToken');
+            this.$cookies.remove('accessTokenAdmin');
             this.$store.commit('userinfo/updateLoggedInStatus',false);
             this.$router.push({
                 path: "/account/login",

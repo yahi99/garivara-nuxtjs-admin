@@ -70,7 +70,7 @@ export default {
   methods:{
     updateVehicleBrand(){
       let self = this;
-      const token = this.$cookies.get('accessToken');
+      const token = this.$cookies.get('accessTokenAdmin');
       let config = {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -125,7 +125,7 @@ export default {
     },
     getVehicleBrandInfo(){
       let self = this;
-      const token = this.$cookies.get('accessToken');
+      const token = this.$cookies.get('accessTokenAdmin');
       let config = {
         headers: {
           'Authorization': `Bearer ${token}`,
